@@ -12,3 +12,6 @@ void BitMap_new(BitMap *bitmap, int bits, char* buffer);
 
 //imposta il bit n-esimo della bitmap al valore 0 o 1
 void BitMap_set(BitMap *bitmap, int n, int value);
+
+//restituisce il valore del n-esimo bit della bitmap
+int BitMap_get(BitMap *bitmap, int n);
