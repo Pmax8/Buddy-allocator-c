@@ -14,3 +14,13 @@ void BitMap_new(BitMap* bitmap, int bits, char* buffer){
       bitmap->size = bits/8 + 1;
       }
 }
+
+void BitMap_set(BitMap* bitmap, int n, int value) {
+    int byte = n / 8;
+    assert(byte < bitmap->size);
+    if (value) {
+    bitmap->buffer[byte] |= 1 << (n & 7);
+}   else {
+    bitmap->buffer[byte] &= ~(1 << (n & 7));
+}
+}
