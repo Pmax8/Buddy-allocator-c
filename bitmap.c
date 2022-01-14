@@ -30,3 +30,4 @@ void BitMap_set(BitMap* bitmap, int n, int value) {
     assert(byte < bitmap->size);
     return bitmap->buffer[byte] & (1 << (n & 7)) ? 1 : 0;
 }
+
