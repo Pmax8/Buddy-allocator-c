@@ -15,3 +15,6 @@ void BitMap_set(BitMap *bitmap, int n, int value);
 
 //restituisce il valore del n-esimo bit della bitmap
 int BitMap_get(BitMap *bitmap, int n);
+
+//stampa la bitmap come albero binario
+void BitMap_print(BitMap* bitmap);    
