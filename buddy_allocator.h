@@ -16,3 +16,6 @@ void BuddyAllocator_new(BuddyAllocator* a, char* memory,  int max_size,  int blo
 
 //individua il livello al quale dovrebbe trovarsi un blocco di size data
 int Find_level(BuddyAllocator* a, int size);
+
+//imposta ricorsivamente i figli del bit dato, al valore di 0 o 1 
+void Set_children(BuddyAllocator* a, int bit, int value);
