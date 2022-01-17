@@ -17,3 +17,18 @@ void BuddyAllocator_new(BuddyAllocator* a, char* memory,  int max_size,  int blo
   printf("Nuovo Buddy Allocator creato:\nMemory size: %d\nMinimum block size: %d\nBitmap size: %d\n\n", max_size, block_size, bitmap_size);
 }
  
+  int Find_level(BuddyAllocator* a, int size){
+     assert(size < a->max_size);
+     //se il blocco è più piccolo della dimensione minima, si troverà nell'ultimo livello
+     if (size <= a->block_size) return a->levels;
+     else {
+        int lvl= 0;
+        int comp = a->max_size / 2;
+      	while (size <= comp){
+		      lvl++;
+		      comp = comp / 2;
+        }
+   	return lvl;
+    }
+}
+
