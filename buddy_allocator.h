@@ -19,3 +19,6 @@ int Find_level(BuddyAllocator* a, int size);
 
 //imposta ricorsivamente i figli del bit dato, al valore di 0 o 1 
 void Set_children(BuddyAllocator* a, int bit, int value);
+
+//imposta ricorsivamente il genitore del bit dato, al valore di 0 o 1
+void Set_parent(BuddyAllocator* a, int bit, int value);
