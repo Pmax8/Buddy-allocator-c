@@ -32,3 +32,11 @@ void BuddyAllocator_new(BuddyAllocator* a, char* memory,  int max_size,  int blo
     }
 }
 
+void Set_children(BuddyAllocator* a, int bit, int value) {
+	//si ferma quando arriva alla fine dell'array
+	if (bit < (&a->bitmap)->bits) {
+		BitMap_set(&a->bitmap, bit, value);
+		Set_children(a, bit*2+1, value);
+		Set_children(a, bit*2+2, value);
+	}
+}
