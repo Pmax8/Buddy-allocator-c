@@ -40,3 +40,15 @@ void Set_children(BuddyAllocator* a, int bit, int value) {
 		Set_children(a, bit*2+2, value);
 	}
 }
+
+void Set_parent(BuddyAllocator* a, int bit, int value) {
+	BitMap_set(&a->bitmap, bit, value);
+	//si ferma quando arriva alla radice
+	if (bit != 0) {
+	  //indice genitore == (indice figlio sx - 1)/2 == (indice figlio dx - 2)/2
+	  if (bit%2 == 0) bit--;
+          bit = (bit-1)/2;
+	  Set_parent(a, bit, value);
+	}
+}
+
