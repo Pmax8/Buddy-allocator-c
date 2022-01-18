@@ -22,3 +22,7 @@ void Set_children(BuddyAllocator* a, int bit, int value);
 
 //imposta ricorsivamente il genitore del bit dato, al valore di 0 o 1
 void Set_parent(BuddyAllocator* a, int bit, int value);
+
+//alloca un blocco di memoria di size data
+void* BuddyAllocator_alloc(BuddyAllocator* a, int size);
+
