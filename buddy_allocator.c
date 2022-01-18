@@ -52,3 +52,34 @@ void Set_parent(BuddyAllocator* a, int bit, int value) {
 	}
 }
 
+void* BuddyAllocator_alloc(BuddyAllocator* a, int size) {
+   printf("Allocazione di un blocco di dimensione %d in memoria...\n", size);
+   //aggiungo un intero per salvarmi l'indice
+   size += sizeof(int);
+   int level = Find_level(a, size);
+   printf("Il blocco potrebbe essere allocato al livello %d...\n", level);
+   //calcolo gli indici più piccoli appartenenteial livello trovato e a quello successivo
+   int from = pow(2,level)-1;
+   int to = pow(2,level+1)-1;
+   //from è l'indice del bit contando come 0 la radice, i è l'indice contando come 0 il primo bit del suo livello
+   int i = 0;
+   for(; from<to; from++) {
+	   //cerco un blocco libero scorrendo il livello
+       if(BitMap_get(&a->bitmap, from)==0) {
+           Set_parent(a, from, 1);
+           Set_children(a, from, 1);
+           int block = a->max_size/(pow(2,level));
+           //salvo il puntatore, e in esso memorizzo il relativo indice della bitmap 
+           char* ptr=a->memory+i*block;
+           *((int*)ptr)=from; 
+           printf("Blocco di dimensione totale %d allocato con successo all'indice %d.\n",block, from);
+           BitMap_print2(&a->bitmap);
+           BitMap_print(&a->bitmap);
+           return (void*)(ptr + 4);
+           } 
+       i++;
+    }
+    printf("ERRORE: Non c’è memoria libera disponibile\n\n");
+    return NULL;
+}
+
