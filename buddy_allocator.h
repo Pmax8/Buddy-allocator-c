@@ -26,3 +26,6 @@ void Set_parent(BuddyAllocator* a, int bit, int value);
 //alloca un blocco di memoria di size data
 void* BuddyAllocator_alloc(BuddyAllocator* a, int size);
 
+//libera il blocco di memoria puntato da ptr
+void BuddyAllocator_free(BuddyAllocator* a, void* ptr); 
+
