@@ -82,4 +82,39 @@ void* BuddyAllocator_alloc(BuddyAllocator* a, int size) {
     printf("ERRORE: Non c’è memoria libera disponibile\n\n");
     return NULL;
 }
+void BuddyAllocator_free(BuddyAllocator* a, void* ptr) {
+	//controllo che la memoria da liberare sia stata precedentemente allocata
+    if (ptr==NULL){
+        printf("ERRORE: puntatore vuoto\n\n");
+        return;
+    }
+    //ricavo l'indice della bitmap
+    int i=*(int*)((char*)ptr-sizeof(int));
+    int aux=log2(i+1);
+    int block = a->max_size/pow(2, aux);
+    printf("Liberazione del blocco di dimensione totale %d salvato all'indice della bitmap %d...\n", block, i);
+    BitMap_set(&a->bitmap, i, 0);
+    Set_children(a, i, 0);
+    //libero il genitore se il blocco fratello è già vuoto, così si riuniscono
+    int iBuddy = i;
+    if(i%2==0) {
+       iBuddy--; 
+    } else {
+       iBuddy++; 
+    }
+    while (i!=0 &&  BitMap_get(&a->bitmap,iBuddy)==0){
+       int iParent = (i-1)/2;
+       BitMap_set(&a->bitmap,iParent,0);
+       i=iParent;
+       iBuddy = i;
+       if(i%2==0) {
+          iBuddy--; 
+       } else {
+          iBuddy++; 
+       }
+    }
+    printf("Memoria liberata con successo.\n");
+    BitMap_print2(&a->bitmap);
+    BitMap_print(&a->bitmap);
+} 
 
