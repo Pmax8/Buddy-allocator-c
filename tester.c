@@ -11,35 +11,29 @@ char memory[MEM_SIZE];
 BuddyAllocator ba;
 
 int main(int argc, char** argv) {
-  printf("------Inizio test------\n\n");
+  printf("\n---TEST ALLOCAZIONE MEMORIA---\n\n");
   BuddyAllocator_new(&ba, memory, MEM_SIZE, BLOCK_SIZE, buffer, BITMAP_SIZE);
-  printf("TEST PER LA FUNZIONE CHE ALLOCA MEMORIA:\n\n");
-  printf("---BLOCK 1---\n");
+  printf("--TEST 1:Alloc e free--\n\n");
+  printf("-ALLOCAZIONE MEMORIA-\n\n");
   void* block_1=BuddyAllocator_alloc(&ba, 3);
-  printf("---BLOCK 2---\n");
-  void* block_2=BuddyAllocator_alloc(&ba, 50);
-  printf("---BLOCK 3---\n");
-  void* block_3=BuddyAllocator_alloc(&ba, 10);
-  printf("---BLOCK 4---\n");
-  void* block_4=BuddyAllocator_alloc(&ba, 10);
-  printf("---TESTIAMO L'ERRORE: BLOCK 5---\n");
-  void* block_5=BuddyAllocator_alloc(&ba, 18);
-  printf("---BLOCK 6---\n");
-  void* block_6=BuddyAllocator_alloc(&ba, 3);
-  printf("TEST PER LA FUNZIONE CHE LIBERA MEMORIA:\n\n");
-  printf("---BLOCK 2---\n");
-  BuddyAllocator_free(&ba, block_2);
-  printf("---BLOCK 1---\n");
+  printf("-FREE-\n\n");
   BuddyAllocator_free(&ba, block_1);
-  printf("---BLOCK 6---\n");
-  BuddyAllocator_free(&ba, block_6);
-  printf("---BLOCK 4---\n");
-  BuddyAllocator_free(&ba, block_4);
-  printf("---TESTIAMO L'ERRORE: BLOCK 5---\n");
-  BuddyAllocator_free(&ba, block_5);
-  printf("---BLOCK 3---\n");
+  printf("--TEST ALLOCAZIONE IN SERIE:--\n\n");
+  printf("-ALLOCAZIONE PRIMO BLOCCO-\n\n");
+  block_1=BuddyAllocator_alloc(&ba, 50);
+  printf("-ALLOCAZIONE SECONDO BLOCCO-\n\n");
+  void* block_2=BuddyAllocator_alloc(&ba, 10);
+  printf("-ERRORE DI ALLOCAZIONE-\n\n");
+  void* block_3=BuddyAllocator_alloc(&ba, 40);
+  printf("--TEST PER LA FUNZIONE CHE LIBERA MEMORIA:--\n\n");
+  printf("-LIBERIAMO IL BLOCCO 3 NON ALLOCATO-\n\n");
   BuddyAllocator_free(&ba, block_3);
-  printf("------Fine test------\n"); 
+  printf("-FREE SECONDO BLOCCO-\n\n");
+  BuddyAllocator_free(&ba, block_2);
+  printf("-FREE PRIMO BLOCCO-\n\n");
+  BuddyAllocator_free(&ba, block_1); 
+  printf("---TEST TERMINATO---\n\n");
   return 0; 
-  }
+}
+
   
