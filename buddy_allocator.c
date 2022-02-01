@@ -73,7 +73,6 @@ void* BuddyAllocator_alloc(BuddyAllocator* a, int size) {
            char* ptr=a->memory+i*block;
            *((int*)ptr)=from; 
            printf("Blocco di dimensione totale %d allocato con successo all'indice %d.\n",block, from);
-           BitMap_print2(&a->bitmap);
            BitMap_print(&a->bitmap);
            return (void*)(ptr + 4);
            } 
@@ -114,7 +113,6 @@ void BuddyAllocator_free(BuddyAllocator* a, void* ptr) {
        }
     }
     printf("Memoria liberata con successo.\n");
-    BitMap_print2(&a->bitmap);
     BitMap_print(&a->bitmap);
 } 
 
