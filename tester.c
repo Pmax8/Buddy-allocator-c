@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
   BuddyAllocator_free(&ba, block_1); 
   printf("-LIBERIAMO IL PRIMO BLOCCO PRECEDENTEMENTE LIBERATO-\n\n");
   BuddyAllocator_free(&ba, block_1); 
-  printf("---TEST TERMINATO---\n\n");
+  printf("\n\n---TEST TERMINATO---\n\n");
   return 0; 
 }
 
