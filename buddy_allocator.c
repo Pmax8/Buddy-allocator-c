@@ -89,6 +89,11 @@ void BuddyAllocator_free(BuddyAllocator* a, void* ptr) {
     }
     //ricavo l'indice della bitmap
     int i=*(int*)((char*)ptr-sizeof(int));
+    //controllo Che la memoria non sia già stata liberata
+    if(BitMap_get(&a->bitmap, i)==0) {
+		printf("ERRORE: blocco di memoria già liberato");
+		return;
+	}
     int aux=log2(i+1);
     int block = a->max_size/pow(2, aux);
     printf("Liberazione del blocco di dimensione totale %d salvato all'indice della bitmap %d...\n", block, i);
